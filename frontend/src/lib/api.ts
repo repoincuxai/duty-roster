@@ -1,6 +1,10 @@
 import type { Assignment, DashboardAnalytics, Duty, Officer } from "../types/domain";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "";
+let base = import.meta.env.VITE_API_BASE ?? "";
+if (base && !base.startsWith("http://") && !base.startsWith("https://")) {
+  base = `https://${base}`;
+}
+export const API_BASE = base;
 
 if (!API_BASE) {
   console.warn("VITE_API_BASE is not set — API calls will fail. Create frontend/.env and set VITE_API_BASE.");
